@@ -98,6 +98,26 @@ curl localhost/hello-resteasy //Hello RESTEasy from service-4-k8s-5656b487bf-2bw
 Install dashboard
 From github
 
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+
+
 --
 References
 https://kind.sigs.k8s.io/docs/user/ingress/
